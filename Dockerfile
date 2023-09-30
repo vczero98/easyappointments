@@ -20,11 +20,13 @@ RUN a2enmod rewrite
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
-# RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+COPY . .
+COPY ./docker/server/php.ini /usr/local/etc/php/conf.d/99-overrides.ini
 
 # COPY ../package.json ./
 # COPY ../package-lock.json ./
 
 # RUN npm install
 # RUN composer install
-# RUN npm start
+# CMD ["npm", "start"]
